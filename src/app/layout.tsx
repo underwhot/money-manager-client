@@ -3,7 +3,9 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import StoreProvider from "@/store/StoreProvider";
+import CheckAuthProvider from "./check-auth-provider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,10 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${roboto.className} flex min-h-screen flex-col`}>
-        <Header />
-        <main className="container flex-1 py-4 flex flex-col">{children}</main>
-        <Footer />
-        <Toaster />
+        <StoreProvider>
+          <CheckAuthProvider>
+            <Header />
+            <main className="container flex flex-1 flex-col py-4">
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
+          </CheckAuthProvider>
+        </StoreProvider>
       </body>
     </html>
   );

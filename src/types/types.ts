@@ -1,14 +1,23 @@
+export type User = {
+  id: number;
+  email: string;
+  token: string;
+};
+
 export type UserData = {
   email: string;
   password: string;
 };
 
+export type ResponseUser = {
+  email: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  password: string;
+};
+
 export type ResponseUserData = {
-  email: string | undefined;
-  password: string | undefined;
-  createdAt?: string | undefined;
-  updatedAt?: string | undefined;
-  __v?: number | undefined;
-  _id?: string | undefined;
-  message?: string | undefined;
+  token: string;
+  user: ResponseUser;
 };

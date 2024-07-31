@@ -2,9 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AuthService } from "@/services/auth.services";
-import { useEffect, useState } from "react";
+import { AuthService } from "@/services/auth.service";
+import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { setTokenToLocalStorage } from "@/helpers/localstorage.helper";
+import { useAppDispatch } from "@/store/hooks";
+import { login } from "@/store/slices/userSlice";
+import { useRouter } from "next/navigation";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(false);
@@ -13,6 +17,8 @@ export default function AuthPage() {
     password: "",
   });
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -20,7 +26,6 @@ export default function AuthPage() {
       [event.target.name]: event.target.value,
     });
   };
-
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,7 +48,28 @@ export default function AuthPage() {
     }
   };
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {};
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const data = await AuthService.login(form);
+      if (data) {
+        setTokenToLocalStorage("token", data.token);
+        dispatch(login(data));
+        toast({
+          title: "Logged in",
+        });
+
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.error(error);
+      const err = error.response?.data.message;
+      toast({
+        title: err.toString(),
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4">

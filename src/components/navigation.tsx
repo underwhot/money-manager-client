@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "./ui/button";
-import { RiLogoutCircleRFill } from "react-icons/ri";
+import { useAuth } from "@/hooks/useAuth";
 
 const linksList = [
   {
@@ -17,7 +16,7 @@ const linksList = [
 ];
 
 export default function Navigation() {
-  const isAuth = true;
+  const isAuth = useAuth();
   const pathname = usePathname();
 
   return (
