@@ -16,11 +16,11 @@ import {
 } from "@/store/slices/dialogSlice";
 import { useSelector } from "react-redux";
 import { Input } from "@/components/ui/input";
-import { Button } from "./ui/button";
 import { createCategory, updateCategory } from "@/actions/actions";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { useToast } from "./ui/use-toast";
+import CategoriesModalBtn from "./categories-modal-btn";
 
 export default function CategoriesModal() {
   const [title, setTitle] = useState("");
@@ -134,9 +134,7 @@ export default function CategoriesModal() {
             name="title"
             placeholder="Enter category name"
           />
-          <Button type="submit">
-            {formType === "post" ? "Create" : "Update"}
-          </Button>
+          <CategoriesModalBtn formType={formType} />
         </form>
       </DialogContent>
     </Dialog>

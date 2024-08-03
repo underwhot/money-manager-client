@@ -26,14 +26,19 @@ export const registration = async (userData: UserData) => {
   }
 };
 
-export const getProfile = async (token: string) => {
-  const res = await axiosInstance.get("auth/profile", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (res.data) {
-    return res.data as User | undefined;
+export const getProfile = async (token: string | undefined) => {
+  try {
+    const res = await axiosInstance.get("auth/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.data) {
+      return res.data as User | undefined;
+    }
+  } catch (error: any) {
+    throw new Error(error.response.data.message || "Failed to get profile");
   }
 };
 

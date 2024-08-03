@@ -4,7 +4,7 @@ import type { RootState } from "../store";
 
 interface Dialog {
   isOpen: boolean;
-  type: "post" | "patch" | "delete";
+  type: "post" | "patch";
   id?: number | null;
   // onOpen: () => void;
   // onClose: () => void;
@@ -26,7 +26,7 @@ export const dialogSlice = createSlice({
   name: "dialog",
   initialState,
   reducers: {
-    setOnOpen: (state, action: PayloadAction<"post" | "patch" | "delete">) => {
+    setOnOpen: (state, action: PayloadAction<"post" | "patch">) => {
       state.isOpen = true;
       state.type = action.payload;
     },

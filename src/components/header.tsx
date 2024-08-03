@@ -10,7 +10,7 @@ export default async function Header() {
 
   return (
     <header className="border-b-2">
-      <div className="container flex items-center gap-6 py-4">
+      <div className="container flex items-center gap-3 py-4 flex-wrap">
         <div className="flex-[1_0]">
           <Link href="/" className="inline-flex">
             <RiMoneyDollarCircleFill size={40} />

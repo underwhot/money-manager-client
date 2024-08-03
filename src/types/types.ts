@@ -25,4 +25,5 @@ export type ResponseUserData = {
 export type TCategory = {
   id: number;
   title: string;
+  transactions: [];
 };

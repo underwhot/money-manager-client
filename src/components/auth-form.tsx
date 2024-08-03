@@ -7,8 +7,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAppDispatch } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { login, registration } from "@/actions/actions";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { setLogin } from "@/store/slices/userSlice";
+import AuthFormBtn from "./auth-form-btn";
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(false);
@@ -56,7 +57,7 @@ export default function AuthForm() {
       const data = await login(userData);
 
       if (data) {
-        Cookies.set('token', data.token, { expires: 30 });
+        Cookies.set("token", data.token, { expires: 30 });
         dispatch(setLogin(data));
         toast({
           title: "Logged in",
@@ -94,18 +95,14 @@ export default function AuthForm() {
           onChange={handleChange}
           value={userData.password}
         />
-        <Button className="flex-initial" type="submit">
-          {isLogin ? "Login" : "Register"}
-        </Button>
+        <AuthFormBtn isLogin={isLogin} />
       </form>
 
-      <div>
-        <Button variant="link" onClick={() => setIsLogin((prev) => !prev)}>
-          {isLogin
-            ? "Don't have an account? Register"
-            : "Already have an account? Login"}
-        </Button>
-      </div>
+      <Button variant="link" onClick={() => setIsLogin((prev) => !prev)}>
+        {isLogin
+          ? "Don't have an account? Register"
+          : "Already have an account? Login"}
+      </Button>
     </div>
   );
 }
