@@ -1,9 +1,3 @@
-import { Button } from "@/components/ui/button";
-
 export default function Home() {
-  return (
-   <main>
-     <Button>Click me</Button>
-   </main>
-  );
+  return <h1 className="text-center text-2xl">Home</h1>;
 }

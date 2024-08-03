@@ -17,19 +17,19 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<User>) => {
+    setLogin: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
       state.isAuth = true;
     },
-    logout: (state) => {
+    setLogout: (state) => {
       state.user = null;
       state.isAuth = false;
     },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { setLogin, setLogout } = userSlice.actions;
 
-export const selectCount = (state: RootState) => state.user;
+export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;

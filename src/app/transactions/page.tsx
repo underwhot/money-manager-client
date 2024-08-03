@@ -1,6 +1,9 @@
+import ProtectedRouteProvider from "../protected-route-provider";
 
 export default function TransactionsPage() {
   return (
-    <div>TransactionsPage</div>
-  )
+    <ProtectedRouteProvider>
+      <div>TransactionsPage</div>
+    </ProtectedRouteProvider>
+  );
 }

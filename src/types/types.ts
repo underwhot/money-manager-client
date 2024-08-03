@@ -21,3 +21,8 @@ export type ResponseUserData = {
   token: string;
   user: ResponseUser;
 };
+
+export type TCategory = {
+  id: number;
+  title: string;
+};

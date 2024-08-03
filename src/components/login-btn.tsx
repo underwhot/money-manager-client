@@ -5,20 +5,21 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useAppDispatch } from "@/store/hooks";
-import { logout } from "@/store/slices/userSlice";
-import { removeTokenFromLocalStorage } from "@/helpers/localstorage.helper";
 import { useToast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { setLogout } from "@/store/slices/userSlice";
 
-export default function LogIn() {
+export default function LoginBtn() {
   const isAuth = useAuth();
   const dispatch = useAppDispatch();
   const { toast } = useToast();
   const router = useRouter();
 
   const handleLogout = () => {
-    dispatch(logout());
-    removeTokenFromLocalStorage();
+    dispatch(setLogout());
+    Cookies.remove("token");
+
     toast({
       title: "Logged out",
     });

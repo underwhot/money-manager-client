@@ -28,7 +28,7 @@ export default function RootLayout({
         <StoreProvider>
           <CheckAuthProvider>
             <Header />
-            <main className="container flex flex-1 flex-col py-4">
+            <main className="container flex flex-1 flex-col py-5">
               {children}
             </main>
             <Footer />
