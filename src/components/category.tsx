@@ -19,9 +19,7 @@ export default function Category({ title, id }: TCategory) {
     dispatch(setId(id));
   };
 
-  const handleDelete = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleDelete = async (id: number) => {
     try {
       const token = Cookies.get("token");
       if (!token) {
@@ -57,15 +55,12 @@ export default function Category({ title, id }: TCategory) {
             <FaEdit size={20} />
           </button>
 
-          <form
+          <button
+            onClick={() => handleDelete(id)}
             className="flex items-center justify-center"
-            onSubmit={handleDelete}
           >
-            <input type="hidden" value={id} />
-            <button type="submit">
-              <AiFillDelete size={20} />
-            </button>
-          </form>
+            <AiFillDelete size={20} />
+          </button>
         </div>
       </div>
     </Button>

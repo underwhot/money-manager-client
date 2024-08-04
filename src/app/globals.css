@@ -68,6 +68,9 @@
   }
 }
 
+:root {
+  color-scheme: dark;
+}
 
 .lds-ring,
 .lds-ring div {
@@ -108,4 +111,3 @@
     transform: rotate(360deg);
   }
 }
-

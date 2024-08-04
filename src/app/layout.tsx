@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
 import StoreProvider from "@/store/StoreProvider";
 import CheckAuthProvider from "./check-auth-provider";
+import CategoriesModal from "@/components/categories-modal";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
             </main>
             <Footer />
             <Toaster />
+            <CategoriesModal />
           </CheckAuthProvider>
         </StoreProvider>
       </body>

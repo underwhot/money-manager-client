@@ -25,5 +25,15 @@ export type ResponseUserData = {
 export type TCategory = {
   id: number;
   title: string;
-  transactions: [];
+  createdAt: string;
+  transactions?: [];
+};
+
+export type TTransaction = {
+  id: number;
+  title: string;
+  amount: number;
+  type: string;
+  createdAt: string;
+  category: TCategory;
 };

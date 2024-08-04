@@ -57,6 +57,7 @@ export const createCategory = async (formData: FormData, token: string) => {
     );
 
     revalidatePath("/categories");
+    revalidatePath("/transactions");
 
     return res.data;
   } catch (error: any) {
@@ -80,6 +81,7 @@ export const updateCategory = async (formData: FormData, token: string) => {
     );
 
     revalidatePath("/categories");
+    revalidatePath("/transactions");
 
     return res.data;
   } catch (error: any) {
@@ -96,6 +98,7 @@ export const deleteCategory = async (id: string, token: string) => {
     });
 
     revalidatePath("/categories");
+    revalidatePath("/transactions");
 
     return res.data;
   } catch (error: any) {
@@ -111,10 +114,74 @@ export const getCategories = async (token: string) => {
       },
     });
 
-    revalidatePath("/categories");
-
     return res.data;
   } catch (error: any) {
     throw new Error(error.response.data.message || "Failed to get categories");
+  }
+};
+
+export const createTransaction = async (formData: FormData, token: string) => {
+  const title = formData.get("title") as string;
+  const amount = +(formData.get("amount") as string);
+  const category = formData.get("category" as string);
+  const type = formData.get("type") as string;
+
+  try {
+    const res = await axiosInstance.post(
+      "/transactions",
+      {
+        title,
+        amount,
+        category,
+        type,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    revalidatePath("/transactions");
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message || "Failed to create transactions",
+    );
+  }
+};
+
+export const getTransactions = async (token: string) => {
+  try {
+    const res = await axiosInstance.get("/transactions", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message || "Failed to get transactions",
+    );
+  }
+};
+
+export const deleteTransaction = async (id: string, token: string) => {
+  try {
+    const res = await axiosInstance.delete(`/transactions/transaction/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    revalidatePath("/transactions");
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message || "Failed to delete transaction",
+    );
   }
 };
