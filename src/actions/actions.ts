@@ -152,6 +152,24 @@ export const createTransaction = async (formData: FormData, token: string) => {
   }
 };
 
+export const deleteTransaction = async (id: string, token: string) => {
+  try {
+    const res = await axiosInstance.delete(`/transactions/transaction/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    revalidatePath("/transactions");
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message || "Failed to delete transaction",
+    );
+  }
+};
+
 export const getTransactions = async (token: string) => {
   try {
     const res = await axiosInstance.get("/transactions", {
@@ -168,20 +186,58 @@ export const getTransactions = async (token: string) => {
   }
 };
 
-export const deleteTransaction = async (id: string, token: string) => {
+export const getTransactionsWithPagination = async (
+  token: string,
+  page: number,
+  limit: number,
+) => {
   try {
-    const res = await axiosInstance.delete(`/transactions/transaction/${id}`, {
+    const res = await axiosInstance.get(
+      `/transactions/pagination?page=${page}&limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message ||
+        "Failed to get transactions with pagination",
+    );
+  }
+};
+
+export const totalIncome = async (token: string) => {
+  try {
+    const res = await axiosInstance.get("/transactions/income/find", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    revalidatePath("/transactions");
-
-    return res.data;
+    return res.data as number;
   } catch (error: any) {
     throw new Error(
-      error.response.data.message || "Failed to delete transaction",
+      error.response.data.message || "Failed to get total income",
+    );
+  }
+};
+
+export const totalExpense = async (token: string) => {
+  try {
+    const res = await axiosInstance.get("/transactions/expense/find", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data as number;
+  } catch (error: any) {
+    throw new Error(
+      error.response.data.message || "Failed to get total expense",
     );
   }
 };

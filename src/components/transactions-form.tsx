@@ -128,7 +128,7 @@ export default function TransactionsForm({
             onValueChange={(value) =>
               setFormValues({ ...formValues, category: value })
             }
-            defaultValue={formValues.category}
+            value={formValues.category}
           >
             <SelectTrigger id="category">
               <SelectValue placeholder="Select a category" />
@@ -152,7 +152,7 @@ export default function TransactionsForm({
 
       <div>
         <RadioGroup
-          defaultValue={formValues.type}
+          value={formValues.type}
           onValueChange={(value) =>
             setFormValues({ ...formValues, type: value })
           }
